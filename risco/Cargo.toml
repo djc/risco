@@ -1,0 +1,13 @@
+[package]
+name = "risco"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+jiff = { version = "0.2.39", default-features = false }
+tokio = { version = "1.54.1", features = ["io-util", "macros", "net", "rt", "sync", "time"] }
+tracing = "0.1.44"
+
+[dev-dependencies]
+tokio = { version = "1.54.1", features = ["signal"] }
+tracing-subscriber = { version = "0.3.23", default-features = false, features = ["fmt", "env-filter", "ansi"] }
