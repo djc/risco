@@ -3,6 +3,10 @@ name = "risco"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+# Exposes a mock panel for testing; not covered by semver guarantees
+test-util = []
+
 [dependencies]
 jiff = { version = "0.2.39", default-features = false }
 tokio = { version = "1.54.1", features = ["io-util", "macros", "net", "rt", "sync", "time"] }

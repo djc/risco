@@ -1,0 +1,25 @@
+[package]
+name = "risco-api"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+client = ["dep:reqwest"]
+server = ["dep:axum", "dep:risco", "dep:tokio", "dep:tracing", "dep:tracing-subscriber"]
+
+[dependencies]
+axum = { version = "0.8.9", default-features = false, features = ["http1", "json", "tokio"], optional = true }
+reqwest = { version = "0.13.5", default-features = false, features = ["json"], optional = true }
+risco = { version = "0.1.0", path = "../risco", optional = true }
+serde = { version = "1.0.229", features = ["derive"] }
+tokio = { version = "1.54.1", features = ["macros", "net", "rt", "signal", "sync", "time"], optional = true }
+tracing = { version = "0.1.44", optional = true }
+tracing-subscriber = { version = "0.3.23", default-features = false, features = ["fmt", "env-filter", "ansi"], optional = true }
+
+[dev-dependencies]
+risco = { version = "0.1.0", path = "../risco", features = ["test-util"] }
+tokio = { version = "1.54.1", features = ["macros", "net", "rt"] }
+
+[[bin]]
+name = "risco-api-server"
+required-features = ["server"]

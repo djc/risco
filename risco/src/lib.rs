@@ -30,6 +30,9 @@ mod codec;
 mod connection;
 mod error;
 pub use error::{Error, PanelError};
+#[cfg(any(test, feature = "test-util"))]
+#[doc(hidden)]
+pub mod mock;
 mod panel;
 pub use panel::{Model, Panel};
 mod types;

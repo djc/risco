@@ -1,0 +1,44 @@
+# Runs the risco-api server, which keeps a connection to a Risco alarm panel open and serves a
+# JSON API for it. See ../README.md for how to install it.
+
+[Unit]
+Description=HTTP API for a Risco alarm panel
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+# The panel's address, the access code and the listen address
+EnvironmentFile=/etc/default/risco-api
+ExecStart=/usr/local/bin/risco-api-server
+# journald doesn't show colors
+Environment=NO_COLOR=1
+
+# Restart after crashes, or when the listen address isn't available yet. The server reconnects to
+# the panel by itself.
+Restart=always
+RestartSec=10
+
+# The server only disconnects from the panel cleanly on SIGINT, not on systemd's default SIGTERM.
+# After an unclean disconnect, the panel can take a long time to accept a new connection. Stopping
+# waits for a connection attempt in progress to finish.
+KillSignal=SIGINT
+TimeoutStopSec=60
+
+# Run as a throwaway unprivileged user, with as little access to the system as it needs. Listening
+# on a port below 1024 would need CapabilityBoundingSet=CAP_NET_BIND_SERVICE and
+# AmbientCapabilities=CAP_NET_BIND_SERVICE.
+DynamicUser=yes
+ProtectHome=yes
+PrivateDevices=yes
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+
+[Install]
+WantedBy=multi-user.target
