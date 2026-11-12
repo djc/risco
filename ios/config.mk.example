@@ -1,0 +1,17 @@
+# Copy this to config.mk and fill it in; config.mk is not checked in
+
+# An App ID registered for your team on the developer portal
+BUNDLE_ID = com.example.risco
+
+# The development provisioning profile for that App ID (a path without spaces)
+PROFILE = signing/Risco_Development.mobileprovision
+
+# The signing identity, by name or SHA-1 hash (see `make identities`); by default, the one in the
+# keychain that the provisioning profile allows
+# SIGN_IDENTITY =
+
+# The name or identifier of your iPhone (see `make devices`)
+DEVICE = iPhone
+
+# A simulator to boot and run in (see `make simulators`); by default, the one that is running
+# SIMULATOR = iPhone 17
